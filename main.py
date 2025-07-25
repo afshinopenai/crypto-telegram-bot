@@ -59,7 +59,11 @@ def analyze_pair(symbol):
         print(f"❌ خطا در {symbol}: {e}")
 
 # اجرای برنامه
-binance = ccxt.binance()
+binance = ccxt.binance({'options': {'adjustForTimeDifference': True}, 'enableRateLimit': True})
+binance.urls['api'] = {
+    'public': 'https://api.binance.me/api',
+    'private': 'https://api.binance.me/api'
+}
 markets = binance.load_markets()
 symbols = [s for s in markets if "/USDT" in s and markets[s]['active']]
 
